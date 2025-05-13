@@ -42,7 +42,8 @@ from datetime import datetime
 #         if os.path.isfile(file):
 #                 timestamp = datetime.fromtimestamp(file.stat().st_mtime)
 #                 size = file.stat().st_size
-#                 file_list.append((file.path, file.name, pathlib.Path(file).suffix, timestamp.strftime('%d %B %Y, %H:%M'), size))
+#                 file_list.append((file.path, file.name, pathlib.Path(file).suffix, \
+#                 timestamp.strftime('%d %B %Y, %H:%M'), size))
 #     return file_list
 #
 # def get_subdir_file_list(directory):
@@ -52,7 +53,8 @@ from datetime import datetime
 #         if os.path.isfile(file):
 #             timestamp = datetime.fromtimestamp(file.stat().st_mtime)
 #             size = file.stat().st_size
-#             file_list.append((file.path, file.name, pathlib.Path(file).suffix, timestamp.strftime('%d %B %Y, %H:%M'), size))
+#             file_list.append((file.path, file.name, pathlib.Path(file).suffix, \
+#             timestamp.strftime('%d %B %Y, %H:%M'), size))
 #     return file_list
 #
 # def get_subdirectories(directory):
@@ -67,7 +69,7 @@ from datetime import datetime
 
 def index_files(directory):
     """Searches through a directory and records data on each file.
-	If a subdirectory is found, the function recursively calls itself"""
+    If a subdirectory is found, the function recursively calls itself"""
 
     directory_list = []
     for file in directory:
@@ -82,9 +84,10 @@ def index_files(directory):
         else:  # Is a file
             timestamp = datetime.utcfromtimestamp(file.stat().st_mtime)
             size = file.stat().st_size
-            directory_list.append((file.path, file.name, pathlib.Path(file).suffix, timestamp.strftime('%d %b %Y'), size))
-
+            directory_list.append((file.path, file.name, pathlib.Path(file).suffix,
+                                   timestamp.strftime('%d %b %Y'), size))
     return directory_list
+
 
 def print_directory_list(indexed_list, top):
     """Formats the file data for console output"""
@@ -109,7 +112,9 @@ def print_directory_list(indexed_list, top):
         else:
             file_path, file_name, file_type, file_mdate, file_size = value
             file_size, unit = size_conversion(file_size)
-            print(f'>> {file_path.replace(top, "*")} - Last accessed: {file_mdate} - {file_type} - {file_size}{unit} - {file_name}')
+            print(f'>> {file_path.replace(top, "*")} - Last accessed: {file_mdate} - '
+                  f'{file_type} - {file_size}{unit} - {file_name}')
+
 
 def get_file_tree(directory, files, folders=False, subfolders=False):
     current_dir = os.scandir(directory)
@@ -123,8 +128,10 @@ def get_file_tree(directory, files, folders=False, subfolders=False):
         if item.is_file() and files:
             timestamp = datetime.fromtimestamp(item.stat().st_mtime)
             size = item.stat().st_size
-            file_tree.append((item.path, item.name, pathlib.Path(item).suffix, timestamp.strftime('%d %B %Y, %H:%M'), size))
+            file_tree.append((item.path, item.name, pathlib.Path(item).suffix,
+                              timestamp.strftime('%d %B %Y, %H:%M'), size))
     return file_tree
+
 
 def get_user_input():
     def action_choice():
@@ -183,6 +190,7 @@ def get_user_input():
 
     return action_choice(), directory_choice()
 
+
 def main():
     user_action, user_directory = get_user_input()
     files, folders, subfolders = user_action
@@ -211,6 +219,7 @@ def main():
     #     print("OSError occurred")
     # except UnicodeEncodeError:
     #     print("An error encoding a Unicode character occurred.")
+
 
 if __name__ == "__main__":
     main()
