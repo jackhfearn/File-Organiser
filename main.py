@@ -192,7 +192,7 @@ def main():
     #     data = 'some data to be written to the file'
     #     f.write(data)
     #
-    # my_path = 'C:/Users/Jack/Desktop/Big Band Sheet Music'
+    # my_path = '<PATH>'
     # print(os.listdir(my_path))
     # directory = os.scandir(my_path)
     # output = index_files(directory)
